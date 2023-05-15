@@ -1,14 +1,18 @@
 var startButton = document.getElementById('startButton');
-var enterScore = document.getElementById('initials');
+var enterScore = document.getElementById('result');
+
+const audioRight = new Audio('mixkit-correct-answer-tone-2870.wav');
+const audioWrong = new Audio('mixkit-wrong-electricity-buzz-955.wav');
 
 function playGame()
 {
-	var stuff;
+	audioWrong.play();
 }
 
 function updateScoreboard()
 {
-	var stuff;
+	event.preventDefault();
+	audioRight.play();
 }
 
 startButton.addEventListener('click', playGame);

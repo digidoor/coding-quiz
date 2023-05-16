@@ -42,6 +42,7 @@ var questions =
 function playGame()
 {
 	score = 0;
+	currentScoreEl.textContent = score;
 	hide(document.getElementById('instructions'));
 	hide(initialsForm);
 	hide(playAgainButton);
@@ -58,7 +59,7 @@ function renderQuestion( questionNumber = 0 )
 	var title = document.createElement("h3");
 	title.textContent = question;
 	questionsEl.append(title);
-	for(i=0; i<answers.length; i++) // maybe should have used foreach or map instead?
+	for(let i=0; i<answers.length; i++) // maybe should have used foreach or map instead?
 	{
 		var answer = document.createElement("button");
 		answer.textContent = answers[i];

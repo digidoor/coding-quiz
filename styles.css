@@ -2,3 +2,21 @@
 	// display: none;
 	//color: red;
 }
+
+h1
+{
+	color: blue;
+}
+
+body
+{
+	font-family: Arial;
+	font-size: 120%;
+}
+
+a
+{
+	color: #009944;
+	text-decoration: none;
+	transition: color 0.1s;
+}

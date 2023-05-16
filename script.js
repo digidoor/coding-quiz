@@ -1,9 +1,12 @@
+var timer = 90;
+var score = 0;
 var startButton = document.getElementById('startButton');
 var initialsForm = document.getElementById('result');
 var questionsEl = document.getElementById('questions');
+var scoreEl = document.getElementById('currentScore');
 
-const audioRight = new Audio('mixkit-correct-answer-tone-2870.wav');
-const audioWrong = new Audio('mixkit-wrong-electricity-buzz-955.wav');
+const audioRight = new Audio('correct.wav');
+const audioWrong = new Audio('incorrect.wav');
 
 var questions =
 [
@@ -36,20 +39,39 @@ var questions =
 
 function playGame()
 {
-	audioWrong.play();
-	for( entry of questions)
+	renderQuestion();
+}
+function renderQuestion( questionNumber = 0 )
+{
+	if( questionNumber >= questions.length )
+		return gameOver();
+	const { question, answers, correct } = questions[questionNumber];
+	var title = document.createElement("h3");
+	title.textContent = question;
+	questionsEl.append(title);
+	for(i=0; i<answers.length; i++)
 	{
-		var title = document.createElement("h3");
-		title.textContent = entry.question;
-		questionsEl.append(title);
-		for(i=0; i<entry.answers.length; i++)
-		{
-			var answer = document.createElement("button");
-			answer.textContent = entry.answers[i];
-			questionsEl.append(answer);
-		}
+		var answer = document.createElement("button");
+		answer.textContent = answers[i];
+		if( answers[i] == correct )
+			answer.addEventListener('click', answerRight);
+		else
+			answer.addEventListener('click', answerWrong);
+		questionsEl.append(answer);
 	}
 }
+function answerRight()
+{
+	audioRight.play();
+	score += 20;
+	scoreEl.textContent = score;
+}
+function answerWrong()
+{
+	audioWrong.play();
+}
+	
+//!! Try rendering the first question by using a default argument for the rendering! Pass the next question manually.
 
 function updateScoreboard()
 {

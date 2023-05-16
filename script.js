@@ -2,6 +2,7 @@ var timer = 90;
 var score = 0;
 var startButton = document.getElementById('startButton');
 var playAgainButton = document.getElementById('playAgain');
+var instructionsEl = document.getElementById('instructions')
 var initialsForm = document.getElementById('result');
 var questionsEl = document.getElementById('questions');
 var currentScoreEl = document.getElementById('currentScore');
@@ -43,14 +44,15 @@ function playGame()
 {
 	score = 0;
 	currentScoreEl.textContent = score;
-	hide(document.getElementById('instructions'));
-	hide(initialsForm);
-	hide(playAgainButton);
+	hide(instructionsEl, initialsForm, playAgainButton);
+	//hide(initialsForm);
+	//hide(playAgainButton);
 	show(currentScoreEl);
 	renderQuestion();
 }
 //function hide( element ) { element.setAttribute('style', "display:none"); } // other way of doing it
-function hide( element ) { element.style.display = "none"; }
+//function hide( element ) { element.style.display = "none"; }
+function hide( ...elements ) { for( let element of elements ) element.style.display = "none"; }
 function renderQuestion( questionNumber = 0 )
 {
 	if( questionNumber >= questions.length )
@@ -93,12 +95,12 @@ function handleAnswerWrong(quesNum)
 }
 function gameOver()
 {
-	show(document.getElementById('result') );
-	finalScoreEl.innerHTML = `<em>${score}</em>`;
+	show(initialsForm, playAgainButton);
+	finalScoreEl.innerHTML = ` <em>${score}</em>`;
 	hide(currentScoreEl);
-	show(playAgainButton);
+	//show(playAgainButton);
 }
-function show( element ) { element.style.display = "block"; }
+function show( ...elements ) { for( let element of elements ) element.style.display = "block"; }
 	
 function updateScoreboard()
 {

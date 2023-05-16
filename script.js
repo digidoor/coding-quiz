@@ -1,9 +1,11 @@
 var timer = 90;
 var score = 0;
 var startButton = document.getElementById('startButton');
+var playAgainButton = document.getElementById('playAgain');
 var initialsForm = document.getElementById('result');
 var questionsEl = document.getElementById('questions');
-var scoreEl = document.getElementById('currentScore');
+var currentScoreEl = document.getElementById('currentScore');
+var finalScoreEl = document.getElementById('score');
 
 const audioRight = new Audio('correct.wav');
 const audioWrong = new Audio('incorrect.wav');
@@ -39,8 +41,15 @@ var questions =
 
 function playGame()
 {
+	score = 0;
+	hide(document.getElementById('instructions'));
+	hide(initialsForm);
+	hide(playAgainButton);
+	show(currentScoreEl);
 	renderQuestion();
 }
+//function hide( element ) { element.setAttribute('style', "display:none"); } // other way of doing it
+function hide( element ) { element.style.display = "none"; }
 function renderQuestion( questionNumber = 0 )
 {
 	if( questionNumber >= questions.length )
@@ -49,7 +58,7 @@ function renderQuestion( questionNumber = 0 )
 	var title = document.createElement("h3");
 	title.textContent = question;
 	questionsEl.append(title);
-	for(i=0; i<answers.length; i++)
+	for(i=0; i<answers.length; i++) // maybe should have used foreach or map instead?
 	{
 		var answer = document.createElement("button");
 		answer.textContent = answers[i];
@@ -66,7 +75,8 @@ function handleAnswerRight(quesNum)
 	{
 		audioRight.play();
 		score += 20;
-		scoreEl.textContent = score;
+		currentScoreEl.textContent = score;
+		questionsEl.innerHTML = '';
 		renderQuestion(++quesNum);
 	}
 }
@@ -76,12 +86,19 @@ function handleAnswerWrong(quesNum)
 	{
 		audioWrong.play();
 		timer -= 10;
+		questionsEl.innerHTML = '';
 		renderQuestion(++quesNum);
 	}
 }
+function gameOver()
+{
+	show(document.getElementById('result') );
+	finalScoreEl.innerHTML = `<em>${score}</em>`;
+	hide(currentScoreEl);
+	show(playAgainButton);
+}
+function show( element ) { element.style.display = "block"; }
 	
-//!! Try rendering the first question by using a default argument for the rendering! Pass the next question manually.
-
 function updateScoreboard()
 {
 	event.preventDefault();
@@ -89,4 +106,5 @@ function updateScoreboard()
 }
 
 startButton.addEventListener('click', playGame);
+playAgainButton.addEventListener('click', playGame);
 initialsForm.addEventListener('submit', updateScoreboard);

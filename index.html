@@ -17,12 +17,12 @@
       <button id="startButton">Start Quiz</button>
     </div>
   
-    <div id="questions" class="hidden">
+    <div id="questions">
       <h2 id="question"></h2>
       <div id="answers"></div>
     </div>
 
-    <form id="result" class="hidden">
+    <form id="result" class="hidden" style="display: none">
       <h2>GAME OVER</h2>
       <p>Final Score:<span id="score"></span></p>
       <p> Enter Initials: <input type="text" id="initials" max="3" />
@@ -30,6 +30,7 @@
       </p>
     </form>
     <p id="currentScore"></p>
+    <button id="playAgain" style="display: none">Play Again</button>
 
     <script src="script.js"></script>
   </body>

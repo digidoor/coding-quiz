@@ -1,5 +1,6 @@
 var timer = 90;
 var score = 0;
+//var scores = JSON.parse(localStorage.getItem("quizScores")) || [];
 var startButton = document.getElementById('startButton');
 var playAgainButton = document.getElementById('playAgain');
 var instructionsEl = document.getElementById('instructions')
@@ -45,14 +46,12 @@ function playGame()
 	score = 0;
 	currentScoreEl.textContent = score;
 	hide(instructionsEl, initialsForm, playAgainButton);
-	//hide(initialsForm);
-	//hide(playAgainButton);
 	show(currentScoreEl);
 	renderQuestion();
 }
 //function hide( element ) { element.setAttribute('style', "display:none"); } // other way of doing it
-//function hide( element ) { element.style.display = "none"; }
 function hide( ...elements ) { for( let element of elements ) element.style.display = "none"; }
+function show( ...elements ) { for( let element of elements ) element.style.display = "block"; }
 function renderQuestion( questionNumber = 0 )
 {
 	if( questionNumber >= questions.length )
@@ -76,10 +75,8 @@ function handleAnswerRight(quesNum)
 {
 	return function answerRight()
 	{
-		audioRight.play();
-		score += 20;
-		currentScoreEl.textContent = score;
-		questionsEl.innerHTML = '';
+		audioRight.play(); console.log("Correct!");
+		score += 20; currentScoreEl.textContent = score; questionsEl.innerHTML = '';
 		renderQuestion(++quesNum);
 	}
 }
@@ -87,10 +84,8 @@ function handleAnswerWrong(quesNum)
 {
 	return function answerWrong()
 	{
-		audioWrong.play();
-		timer -= 10;
-		questionsEl.innerHTML = '';
-		renderQuestion(++quesNum);
+		audioWrong.play(); console.log("Incorrect."); timer -= 10;
+		questionsEl.innerHTML = ''; renderQuestion(++quesNum);
 	}
 }
 function gameOver()
@@ -98,16 +93,23 @@ function gameOver()
 	show(initialsForm, playAgainButton);
 	finalScoreEl.innerHTML = ` <em>${score}</em>`;
 	hide(currentScoreEl);
-	//show(playAgainButton);
 }
-function show( ...elements ) { for( let element of elements ) element.style.display = "block"; }
 	
 function updateScoreboard()
 {
 	event.preventDefault();
 	audioRight.play();
+	var scores = JSON.parse(localStorage.getItem("quizScores")) || [];
+	const name = document.getElementById("initials").value.trim();
+	document.getElementById("initials").value = "";
+	scores.push({ name, score });
+	localStorage.setItem( "quizScores", JSON.stringify(scores) );
+	console.log("New score submitted.");
+	window.location.href = "highscores.html";
 }
 
 startButton.addEventListener('click', playGame);
 playAgainButton.addEventListener('click', playGame);
 initialsForm.addEventListener('submit', updateScoreboard);
+
+//localStorage.removeItem("quizScores");

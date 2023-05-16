@@ -33,6 +33,19 @@ button:hover {
   background-color: #0d4235;
 }
 
+.intro {
+  text-align: center;
+}
+
+.game {
+  text-align: center;
+  display: block;
+}
+
+.display {
+  text-align: center;
+}
+
 .choices button {
   display: block;
 }
@@ -63,10 +76,6 @@ li:nth-child(odd) {
 
 .hide {
   display: none;
-}
-
-.intro {
-  text-align: center;
 }
 
 .scores {

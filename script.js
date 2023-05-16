@@ -43,7 +43,7 @@ var questions =
 function playGame()
 {
 	score = 0;
-	currentScoreEl.textContent = score;
+	currentScoreEl.textContent = `Score: ${score}`;
 	hide(instructionsEl, initialsForm, playAgainButton);
 	show(currentScoreEl);
 	renderQuestion();
@@ -75,7 +75,7 @@ function handleAnswerRight(quesNum)
 	return function answerRight()
 	{
 		audioRight.play(); console.log("Correct!");
-		score += 20; currentScoreEl.textContent = score; questionsEl.innerHTML = '';
+		score += 20; currentScoreEl.textContent = `Score: ${score}`; questionsEl.innerHTML = '';
 		renderQuestion(++quesNum);
 	}
 }

@@ -91,6 +91,7 @@ function handleAnswerWrong(quesNum)
 function gameOver()
 {
 	show(initialsForm, playAgainButton);
+	playAgainButton.style.display = "inline-block";
 	finalScoreEl.innerHTML = ` <em>${score}</em>`;
 	hide(currentScoreEl);
 }

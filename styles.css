@@ -29,20 +29,24 @@ button {
   transition: background-color 0.1s;
 }
 
-button:hover {
+button:hover
+{
   background-color: #0d4235;
 }
 
-.intro {
+.intro
+{
   text-align: center;
 }
 
-.game {
+.game
+{
   text-align: center;
   display: block;
 }
 
-.display {
+.display
+{
   text-align: center;
 }
 
@@ -66,22 +70,16 @@ li {
 }
 
 li:nth-child(odd) {
-  background-color: #f3edfc;
+  background-color: #dfdcdc;
+}
+
+li:nth-child(even) {
+  background-color: #dffae8;
 }
 
 .wrapper {
   margin: 100px auto 0 auto;
   max-width: 600px;
-}
-
-.hide {
-  display: none;
-}
-
-.scores {
-  position: absolute;
-  top: 10px;
-  left: 10px;
 }
 
 .feedback {

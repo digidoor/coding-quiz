@@ -54,21 +54,30 @@ function renderQuestion( questionNumber = 0 )
 		var answer = document.createElement("button");
 		answer.textContent = answers[i];
 		if( answers[i] == correct )
-			answer.addEventListener('click', answerRight);
+			answer.addEventListener('click', handleAnswerRight(questionNumber) );
 		else
-			answer.addEventListener('click', answerWrong);
+			answer.addEventListener('click', handleAnswerWrong(questionNumber) );
 		questionsEl.append(answer);
 	}
 }
-function answerRight()
+function handleAnswerRight(quesNum)
 {
-	audioRight.play();
-	score += 20;
-	scoreEl.textContent = score;
+	return function answerRight()
+	{
+		audioRight.play();
+		score += 20;
+		scoreEl.textContent = score;
+		renderQuestion(++quesNum);
+	}
 }
-function answerWrong()
+function handleAnswerWrong(quesNum)
 {
-	audioWrong.play();
+	return function answerWrong()
+	{
+		audioWrong.play();
+		timer -= 10;
+		renderQuestion(++quesNum);
+	}
 }
 	
 //!! Try rendering the first question by using a default argument for the rendering! Pass the next question manually.

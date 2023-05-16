@@ -1,6 +1,5 @@
 var timer = 90;
 var score = 0;
-//var scores = JSON.parse(localStorage.getItem("quizScores")) || [];
 var startButton = document.getElementById('startButton');
 var playAgainButton = document.getElementById('playAgain');
 var instructionsEl = document.getElementById('instructions')
@@ -84,8 +83,9 @@ function handleAnswerWrong(quesNum)
 {
 	return function answerWrong()
 	{
-		audioWrong.play(); console.log("Incorrect."); timer -= 10;
-		questionsEl.innerHTML = ''; renderQuestion(++quesNum);
+		audioWrong.play(); console.log("Incorrect.");
+		timer -= 10; questionsEl.innerHTML = '';
+		renderQuestion(++quesNum);
 	}
 }
 function gameOver()

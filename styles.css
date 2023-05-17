@@ -74,20 +74,6 @@ li:nth-child(even) {
   background-color: #dffae8;
 }
 
-.wrapper {
-  margin: 100px auto 0 auto;
-  max-width: 600px;
-}
-
-.feedback {
-  font-style: italic;
-  font-size: 120%;
-  margin-top: 20px;
-  padding-top: 10px;
-  color: gray;
-  border-top: 2px solid #ccc;
-}
-
 .timer {
   position: absolute;
   top: 10px;

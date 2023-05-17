@@ -8,7 +8,7 @@
   
   <body>
     <div class="score"><a href="highscores.html">High Scores</a></div>
-    <div class="timer">Time left: <span id="timeRemaining"></span></div>
+    <div class="timer" id="timeRemaining" style="display: none;">Time left: <span id="time"></span></div>
     <div class="intro" id="instructions">
       <h1>Quiz Time!</h1>
       <p>
@@ -20,7 +20,7 @@
     <div id="questions" class="game">
     </div>
 
-    <form id="result" class="display" style="display: none">
+    <form id="result" class="display" style="display: none;">
       <h2>GAME OVER</h2>
       <p>Final Score:<span id="score"></span></p>
       <p> Enter Initials: <input type="text" id="initials" max="3" />

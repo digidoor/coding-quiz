@@ -41,6 +41,7 @@ button:hover
 
 .game
 {
+  margin-top: 60px;
   text-align: center;
   display: block;
 }
@@ -48,10 +49,6 @@ button:hover
 .display
 {
   text-align: center;
-}
-
-.choices button {
-  display: block;
 }
 
 input[type="text"] {

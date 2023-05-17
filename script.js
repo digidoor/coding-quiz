@@ -1,16 +1,3 @@
-var timer = 90;
-var score = 0;
-var startButton = document.getElementById('startButton');
-var playAgainButton = document.getElementById('playAgain');
-var instructionsEl = document.getElementById('instructions')
-var initialsForm = document.getElementById('result');
-var questionsEl = document.getElementById('questions');
-var currentScoreEl = document.getElementById('currentScore');
-var finalScoreEl = document.getElementById('score');
-
-const audioRight = new Audio('correct.wav');
-const audioWrong = new Audio('incorrect.wav');
-
 var questions =
 [
 	{
@@ -40,12 +27,29 @@ var questions =
 	}
 ];
 
+var time;
+var timerId;
+var score;
+var startButton = document.getElementById('startButton');
+var playAgainButton = document.getElementById('playAgain');
+var instructionsEl = document.getElementById('instructions')
+var initialsForm = document.getElementById('result');
+var questionsEl = document.getElementById('questions');
+var currentScoreEl = document.getElementById('currentScore');
+var finalScoreEl = document.getElementById('score');
+var timerEl = document.getElementById('timeRemaining');
+
+const audioRight = new Audio('correct.wav');
+const audioWrong = new Audio('incorrect.wav');
+
 function playGame()
 {
 	score = 0;
+	time = questions.length*10;
 	currentScoreEl.textContent = `Score: ${score}`;
 	hide(instructionsEl, initialsForm, playAgainButton);
-	show(currentScoreEl);
+	show(currentScoreEl, timerEl);
+	timerId = setInterval(timeTick, 1000);
 	renderQuestion();
 }
 //function hide( element ) { element.setAttribute('style', "display:none"); } // other way of doing it
@@ -74,6 +78,7 @@ function handleAnswerRight(quesNum)
 {
 	return function answerRight()
 	{
+		//if( time <= 0 ) return gameOver();
 		audioRight.play(); console.log("Correct!");
 		score += 20; currentScoreEl.textContent = `Score: ${score}`; questionsEl.innerHTML = '';
 		renderQuestion(++quesNum);
@@ -83,17 +88,30 @@ function handleAnswerWrong(quesNum)
 {
 	return function answerWrong()
 	{
+		//if( time <= 0 ) return gameOver();
 		audioWrong.play(); console.log("Incorrect.");
-		timer -= 10; questionsEl.innerHTML = '';
+		time -= 10; questionsEl.innerHTML = '';
 		renderQuestion(++quesNum);
 	}
 }
 function gameOver()
 {
 	show(initialsForm, playAgainButton);
+	questionsEl.innerHTML = '';
 	playAgainButton.style.display = "inline-block";
 	finalScoreEl.innerHTML = ` <em>${score}</em>`;
-	hide(currentScoreEl);
+	hide(currentScoreEl, timerEl);
+	clearInterval(timerId);
+}
+function timeTick()
+{
+	time--;
+	timerEl.textContent = time;
+	if( time <= 0 )
+	{
+		audioWrong.play();
+		gameOver();
+	}
 }
 	
 function updateScoreboard()
